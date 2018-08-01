@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ShopProductJson.Data\ShopProductJson.Data.csproj" />
+    <ProjectReference Include="..\ShopProductJson.Model\ShopProductJson.Model.csproj" />
+  </ItemGroup>
+  
+    <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="7.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+  
+    <ItemGroup>
+      <Folder Include="Output\" />
+    </ItemGroup>
+
+</Project>

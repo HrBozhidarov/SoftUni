@@ -20,21 +20,23 @@
         public void Add(HttpHeader httpHeader)
         {
             Validator.ValidationForNull(httpHeader,nameof(httpHeader));
-            Validator.ValidationForNullAndSpace(httpHeader.Key, nameof(httpHeader.Key));
-            Validator.ValidationForNullAndSpace(httpHeader.Value, nameof(httpHeader.Value));
+            Validator.ValidationForNullAndEmpty(httpHeader.Key, nameof(httpHeader.Key));
+            Validator.ValidationForNullAndEmpty(httpHeader.Value, nameof(httpHeader.Value));
 
             this.headers[httpHeader.Key] = httpHeader;
         }
 
         public bool ContainsHeader(string key)
         {
-            Validator.ValidationForNullAndSpace(key, key);
+            Validator.ValidationForNullAndEmpty(key, key);
 
             return this.headers.ContainsKey(key);
         }
 
         public HttpHeader GetHeader(string key)
         {
+            Validator.ValidationForNullAndEmpty(key, key);
+
             if (!this.headers.ContainsKey(key))
             {
                 return null;

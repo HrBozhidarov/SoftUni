@@ -1,0 +1,40 @@
+﻿<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+            <h1 class="text-success">Create Album</h1>
+            <hr style="height:2px" class="bg-success" />
+        </div>
+        <div class="col-lg-8">
+            <form method="post">
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Name</label>
+                    <input type="text" name="Name" class="form-control" id="formGroupExampleInput" placeholder="Name...">
+                </div>
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Link</label>
+                            <input type="text" name="Link" class="form-control" id="formGroupExampleInput2" placeholder="Link...">
+                        </div>
+                    </div>
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput3">Price</label>
+                            <input type="number" step="0.01" min="1" name="Price" class="form-control" id="formGroupExampleInput3" placeholder="Price...">
+                        </div>
+                    </div>
+                </div>
+                <hr class="bg-success" style="height: 1.5px" />
+                <div class="row text-center">
+                    <div class="col-lg-6">
+                        <button type="submit" class="btn btn-success text-center">Create</button>
+                    </div>
+                    <div class="col-lg-6">
+                        <a class="btn btn-success" href="/albums/details?id={{{albumId}}}" role="button">Back to Album</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,10 @@
 ﻿namespace Sis.Http.Headers
 {
-    // Not currect class
     public class HttpHeader
     {
+        public const string ContentLength = "Content-Length";
+        public const string ContentDisposition = "Content-Disposition";
+
         public HttpHeader(string key, string value)
         {
             this.Key = key;

@@ -1,11 +1,11 @@
-﻿using Sis.WebServer.Routing;
-using System;
-using System.Net;
-using System.Net.Sockets;
-using System.Threading.Tasks;
-
-namespace Sis.WebServer
+﻿namespace Sis.WebServer
 {
+    using System;
+    using System.Net;
+    using System.Net.Sockets;
+    using System.Threading.Tasks;
+    using WebServer.Routing;
+
     public class Server
     {
         private const string LocalHostIpAddress = "127.0.0.1";
@@ -29,9 +29,7 @@ namespace Sis.WebServer
 
             Console.WriteLine($"Server started at http://{LocalHostIpAddress}:{this.port}");
 
-            var task = Task.Run(this.ListenLoop);
-
-            task.Wait();
+            this.ListenLoop().GetAwaiter().GetResult();
         }
 
         public async Task ListenLoop()
@@ -39,9 +37,12 @@ namespace Sis.WebServer
             while (this.isRunning)
             {
                 var client = await this.listener.AcceptSocketAsync();
-                var connectionHandler = new ConnectionHandler(client, this.serverRoutingTable);
-                var responseTask = connectionHandler.ProcessRequestAsync();
-                responseTask.Wait();
+
+                await Task.Run(async () =>
+               {
+                   var connectionHandler = new ConnectionHandler(client, this.serverRoutingTable);
+                   await connectionHandler.ProcessRequestAsync();
+               });
             }
         }
     }

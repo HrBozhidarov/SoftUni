@@ -4,12 +4,16 @@
     using Headers;
     using Headers.Contracts;
     using Requests.Contracts;
-    using Sis.Http.Common;
-    using Sis.Http.Exceptions;
-    using Sis.Http.Exstensions;
+    using Common;
+    using Cookies;
+    using Cookies.Contracts;
+    using Exceptions;
+    using Exstensions;
+    using Sessions.Contracts;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
 
     public class HttpRequest : IHttpRequest
     {
@@ -18,6 +22,7 @@
             this.FormData = new Dictionary<string, object>();
             this.QueryData = new Dictionary<string, object>();
             this.Headers = new HttpHeaderCollection();
+            this.Cookies = new HttpCookieCollection();
 
             this.ParseRequest(requestString);
         }
@@ -32,7 +37,11 @@
 
         public IHttpHeaderCollection Headers { get; }
 
+        public IHttpCookieCollection Cookies { get; private set; }
+
         public HttpRequestMethod RequestMethod { get; private set; }
+
+        public IHttpSession Session { get; set; }
 
         private void ParseRequest(string requestString)
         {
@@ -50,7 +59,33 @@
             this.ParseRequestPath();
 
             this.ParseHeaders(splitRequestContent.Skip(1).ToArray());
+            this.ParseCookies();
             this.ParseRequestParameters(splitRequestContent[splitRequestContent.Length - 1]);
+        }
+
+        private void ParseCookies()
+        {
+            var cookieParameters = this.Headers.GetHeader("Cookie");
+
+            if (cookieParameters == null)
+            {
+                return;
+            }
+
+            foreach (var cookieParameter in cookieParameters.Value
+                                    .Split(new[] { "; " }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                var kvp = cookieParameter.Split(new[] { '=' }, 2);
+
+                if (kvp.Length != 2 || kvp[0] == "" || kvp[1] == "")
+                {
+                    continue;
+                }
+
+                var cooke = new HttpCookie(kvp[0], kvp[1], false);
+
+                this.Cookies.Add(cooke);
+            }
         }
 
         private void ParseRequestParameters(string requestBody)
@@ -66,11 +101,14 @@
                 return;
             }
 
+            //
+            requestBody = WebUtility.UrlDecode(requestBody);
+
             var formData = requestBody.Split('&');
 
             foreach (var data in formData)
             {
-                var kvp = data.Split('=');
+                var kvp = data.Split(new char[] { '=' }, 2);
 
                 this.FormData[kvp[0]] = kvp[1];
             }
@@ -83,6 +121,7 @@
                 return;
             }
 
+            //.. can be problem
             var parameters = this.Url.Split(new[] { '?', '#' }, StringSplitOptions.RemoveEmptyEntries)[1].Split('&');
 
             foreach (var parameter in parameters)
@@ -100,7 +139,7 @@
 
         private bool IsValidRequestQueryString(string[] kvp)
         {
-            if (kvp.Length!=2 || string.IsNullOrEmpty(kvp[0]) || string.IsNullOrEmpty(kvp[1]))
+            if (kvp.Length != 2 || string.IsNullOrEmpty(kvp[0]) || string.IsNullOrEmpty(kvp[1]))
             {
                 return false;
             }
@@ -140,7 +179,7 @@
 
         private void ParseRequestUrl(string[] requestLine)
         {
-            var url = requestLine[1];
+            var url = WebUtility.UrlDecode(requestLine[1]);
 
             this.Url = url;
         }
@@ -166,5 +205,16 @@
 
             return true;
         }
+
+        //private void SetSession()
+        //{
+        //    if (this.Cookies.ContainsCookie(HttpSessionStorage.SessionCookieKey))
+        //    {
+        //        var cookie = this.Cookies.GetCookie(HttpSessionStorage.SessionCookieKey);
+        //        var sessionId = cookie.Value;
+
+        //        this.Session = HttpSessionStorage.GetSession(sessionId);
+        //    }
+        //}
     }
 }

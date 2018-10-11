@@ -1,0 +1,29 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-4">
+            <p><img class="img-fluid max-width: 100%" src="{{{imgUrl}}}" /></p>
+            <div class="text-center">
+                <div><strong>Name: {{{albumName}}}</strong></div>
+                <div><strong>Price: ${{{price}}}</strong></div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <div>
+                    <a class="btn btn-success" href="/tracks/create?id={{{albumId}}}" role="button">Create Track</a>
+                </div>
+                <div>
+                    <a class="btn btn-success" href="/albums/all" role="button">Back To All</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-1"></div>
+        <div class="col-lg-7">
+            <div style="display: {{{noTracks}}}"><h3>No Tracks</h3></div>
+            <div style="display: {{{tracksHave}}}">
+                <h3>Tracks</h3>
+                <ul>
+                    {{{tracks}}}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

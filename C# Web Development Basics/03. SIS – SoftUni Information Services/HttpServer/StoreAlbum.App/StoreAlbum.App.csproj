@@ -14,8 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sis.Http\Sis.Http.csproj" />
-    <ProjectReference Include="..\Sis.WebServer\Sis.WebServer.csproj" />
+    <ProjectReference Include="..\Sis.Framework\Sis.Framework.csproj" />
   </ItemGroup>
 
 </Project>

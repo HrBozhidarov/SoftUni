@@ -1,12 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sis.Framework\Sis.Framework.csproj" />
     <ProjectReference Include="..\Sis.Http\Sis.Http.csproj" />
     <ProjectReference Include="..\Sis.WebServer\Sis.WebServer.csproj" />
   </ItemGroup>

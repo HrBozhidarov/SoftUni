@@ -10,6 +10,6 @@
         Unautorized = 401,
         Forbidden = 403,
         NotFound = 404,
-        InternelServerError = 500
+        InternalServerError = 500
     }
 }

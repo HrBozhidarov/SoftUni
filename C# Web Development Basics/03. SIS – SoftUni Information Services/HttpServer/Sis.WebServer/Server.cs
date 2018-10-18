@@ -1,10 +1,10 @@
 ﻿namespace Sis.WebServer
 {
+    using Sis.WebServer.Api.Contracts;
     using System;
     using System.Net;
     using System.Net.Sockets;
     using System.Threading.Tasks;
-    using WebServer.Routing;
 
     public class Server
     {
@@ -12,13 +12,13 @@
 
         private readonly int port;
         private readonly TcpListener listener;
-        private readonly ServerRoutingTable serverRoutingTable;
+        private readonly IHttpHandlingContext handlersContext;
         private bool isRunning;
 
-        public Server(int port, ServerRoutingTable serverRoutingTable)
+        public Server(int port, IHttpHandlingContext handlersContext)
         {
             this.port = port;
-            this.serverRoutingTable = serverRoutingTable;
+            this.handlersContext = handlersContext;
             this.listener = new TcpListener(IPAddress.Parse(LocalHostIpAddress), port);
         }
 
@@ -40,7 +40,7 @@
 
                 await Task.Run(async () =>
                {
-                   var connectionHandler = new ConnectionHandler(client, this.serverRoutingTable);
+                   var connectionHandler = new ConnectionHandler(client, this.handlersContext);
                    await connectionHandler.ProcessRequestAsync();
                });
             }

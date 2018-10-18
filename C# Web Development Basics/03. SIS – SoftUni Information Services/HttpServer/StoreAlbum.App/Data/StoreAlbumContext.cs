@@ -28,7 +28,7 @@
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder
-                    .UseSqlServer(@"Server=someConectionString;Database=StoreAlbums;Integrated Security=True");
+                    .UseSqlServer(@"Server=DESKTOP-N9Q97SK\SQLEXPRESS;Database=StoreAlbums;Integrated Security=True");
             }
 
             base.OnConfiguring(optionsBuilder);

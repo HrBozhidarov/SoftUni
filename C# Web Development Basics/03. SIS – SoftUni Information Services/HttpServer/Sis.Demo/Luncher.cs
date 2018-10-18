@@ -1,18 +1,16 @@
 ﻿namespace Sis.Demo
 {
-    using Http.Enums;
+    using Framework.Routes;
+    using Sis.WebServer.Routing;
     using WebServer;
-    using WebServer.Routing;
 
     class Luncher
     {
         static void Main(string[] args)
         {
-            var serverRoutingTable = new ServerRoutingTable();
+            var handlingContext = new HttpRouteHandlingContext(new ControllerRouter(), new ResourceRouter());
 
-            serverRoutingTable.Routes[HttpRequestMethod.Get]["/"] = request => new HomeController().Index();
-
-            var server = new Server(8000, serverRoutingTable);
+            var server = new Server(8000, handlingContext);
 
             server.Run();
         }

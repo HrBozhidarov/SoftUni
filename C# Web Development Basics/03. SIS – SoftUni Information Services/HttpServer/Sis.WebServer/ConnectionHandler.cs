@@ -1,29 +1,28 @@
 ﻿namespace Sis.WebServer
 {
-    using Common;
-    using Routing;
+    using Api.Contracts;
     using Http.Enums;
+    using Http.Exceptions;
     using Http.Headers;
     using Http.Requests;
     using Http.Requests.Contracts;
     using Http.Responses.Contracts;
     using Http.Sessions;
-    using System.Net.Sockets;
-    using System.Threading.Tasks;
-    using System.Text;
+    using Results;
     using System;
-    using WebServer.Results;
-    using System.IO;
+    using System.Net.Sockets;
+    using System.Text;
+    using System.Threading.Tasks;
 
     public class ConnectionHandler
     {
         private readonly Socket client;
-        private readonly ServerRoutingTable serverRoutingTable;
+        private readonly IHttpHandlingContext handlersContext;
 
-        public ConnectionHandler(Socket client, ServerRoutingTable serverRoutingTable)
+        public ConnectionHandler(Socket client, IHttpHandlingContext handlersContext)
         {
             this.client = client;
-            this.serverRoutingTable = serverRoutingTable;
+            this.handlersContext = handlersContext;
         }
 
         private async Task<IHttpRequest> ReadRequestAsync()
@@ -61,42 +60,6 @@
             return new HttpRequest(result.ToString());
         }
 
-        private IHttpResponse HandleRequest(IHttpRequest httpRequest)
-        {
-            if (!this.serverRoutingTable.Routes.ContainsKey(httpRequest.RequestMethod)
-                || !this.serverRoutingTable.Routes[httpRequest.RequestMethod].ContainsKey(httpRequest.Path))
-            {
-                return this.ReturnIfResource(httpRequest.Path);
-            }
-
-            return this.serverRoutingTable.Routes[httpRequest.RequestMethod][httpRequest.Path].Invoke(httpRequest);
-        }
-
-        private IHttpResponse ReturnIfResource(string path)
-        {
-            var splitPathOnThePart = path.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
-
-            //if (splitPathOnThePart[0] == "favicon.ico")
-            //{
-            //    splitPathOnThePart[0] = "Resources/favicon.ico";
-            //}
-
-            var pathToFile = ConstantsApp.DefaultResourcesPath + string.Join("/", splitPathOnThePart);
-
-            try
-            {
-                var resource = File.ReadAllText(pathToFile);
-
-                byte[] bytes = Encoding.UTF8.GetBytes(resource);
-
-                return new InlineResourceResult(bytes, HttpResponseStatusCode.OK);
-            }
-            catch 
-            {
-                return new NotFound(HttpResponseStatusCode.NotFound);
-            }
-        }
-
         private async Task PrepareaResponse(IHttpResponse httpResponse)
         {
             var byteSegments = httpResponse.GetBytes();
@@ -110,21 +73,31 @@
 
         public async Task ProcessRequestAsync()
         {
-            var httpRequest = await this.ReadRequestAsync();
-
-            if (httpRequest != null)
+            try
             {
-                var sessionId = this.SetRequestSession(httpRequest);
+                var httpRequest = await this.ReadRequestAsync();
 
-                //here problem
-                var httpResponse = this.HandleRequest(httpRequest);
-
-                if (sessionId != null)
+                if (httpRequest != null)
                 {
-                    httpResponse.Headers.Add(new HttpHeader("Set-Cookie", $"{HttpSessionStorage.SessionCookieKey}={sessionId}; HttpOnly; path=/"));
-                }
+                    var sessionId = this.SetRequestSession(httpRequest);
 
-                await this.PrepareaResponse(httpResponse);
+                    var httpResponse = this.handlersContext.Handle(httpRequest);
+
+                    if (sessionId != null)
+                    {
+                        httpResponse.Headers.Add(new HttpHeader("Set-Cookie", $"{HttpSessionStorage.SessionCookieKey}={sessionId}; HttpOnly; path=/"));
+                    }
+
+                    await this.PrepareaResponse(httpResponse);
+                }
+            }
+            catch (BadRequestException e)
+            {
+                await this.PrepareaResponse(new TextResult(e.Message, HttpResponseStatusCode.BadRequest));
+            }
+            catch (Exception e)
+            {
+                await this.PrepareaResponse(new TextResult(e.Message, HttpResponseStatusCode.InternalServerError));
             }
 
             this.client.Shutdown(SocketShutdown.Both);

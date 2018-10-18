@@ -20,7 +20,7 @@
                 case HttpResponseStatusCode.NotFound: return $"{statusCodeNumber} Not Found";
                 case HttpResponseStatusCode.SeeOther: return $"{statusCodeNumber} See Other";
                 case HttpResponseStatusCode.BadRequest: return $"{statusCodeNumber} Bad Request";
-                case HttpResponseStatusCode.InternelServerError: return $"{statusCodeNumber} Internel Server Error";
+                case HttpResponseStatusCode.InternalServerError: return $"{statusCodeNumber} Internel Server Error";
                 default: throw new InvalidOperationException(GlobalConstants.InvalidStatusCode);
             }
         }

@@ -25,6 +25,8 @@
 
         public string ResourceFolderName { get; set; } = "Resources";
 
+        public string SharedViewsFolderName { get; set; } = "Shared";
+
         public string LayoutViewName { get; set; } = "_Layout";
 
         public string RootDirectoryRelativePath { get; set; } = "..\\..\\..\\";

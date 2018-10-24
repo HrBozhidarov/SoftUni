@@ -1,6 +1,6 @@
 ﻿namespace Sis.Framework.ActionResults.Contracts
 {
-    public interface IRenderable
+    public interface IRenderable 
     {
         string Render();
     }

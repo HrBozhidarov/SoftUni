@@ -4,18 +4,27 @@
     using Controllers;
     using Http.Enums;
     using Http.Exstensions;
-    using Http.Responses.Contracts;
     using Http.Requests.Contracts;
+    using Http.Responses.Contracts;
+    using Services;
+    using Sis.Framework.Attributes.Action;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Reflection;
-    using WebServer.Results;
     using WebServer.Api.Contracts;
+    using WebServer.Results;
 
     public class ControllerRouter : IHttpHeandler
     {
+        private readonly IDependencyContainer dependencyContainer;
+
+        public ControllerRouter(IDependencyContainer dependencyContainer)
+        {
+            this.dependencyContainer = dependencyContainer;
+        }
+
         private Controller GetController(string controllerName, IHttpRequest request)
         {
             if (!string.IsNullOrEmpty(controllerName))
@@ -27,7 +36,7 @@
 
                 var controllerType = Type.GetType(pathController);
 
-                var controller = (Controller)Activator.CreateInstance(controllerType);
+                var controller = (Controller)this.dependencyContainer.CreateInstance(controllerType);
 
                 if (controller != null)
                 {
@@ -42,6 +51,8 @@
 
         private MethodInfo GetMethod(string requestMethod, Controller controller, string actionName)
         {
+            var a = GetSuitableMethods(controller, actionName);
+
             foreach (var methodInfo in GetSuitableMethods(controller, actionName))
             {
                 var attributes = methodInfo.GetCustomAttributes()
@@ -70,6 +81,14 @@
             if (controller == null)
             {
                 return new MethodInfo[0];
+            }
+
+            var a = controller.GetType().GetMethods().Where(x => x.Name.ToUpper() == actionName.ToUpper());
+
+
+            foreach (var item in controller.GetType().GetMethods())
+            {
+                Console.WriteLine(item.Name);
             }
 
             return controller.GetType().GetMethods().Where(x => x.Name.ToUpper() == actionName.ToUpper());
@@ -119,7 +138,7 @@
 
             ActionResults.Contracts.IActionResult actionResult = this.InvokeAction(controller, method, actionParameters);
 
-            return PrepareResponse(actionResult);
+            return this.Authorize(controller, method) ?? PrepareResponse(actionResult);
         }
 
         private ActionResults.Contracts.IActionResult InvokeAction(Controller controller, MethodInfo method, object[] actionParameters)
@@ -215,6 +234,19 @@
             else if (httpRequest.FormData.ContainsKey(paramName))
             {
                 return httpRequest.FormData[paramName];
+            }
+
+            return null;
+        }
+
+        private IHttpResponse Authorize(Controller controller, MethodInfo action)
+        {
+            if (action.GetCustomAttributes()
+                .Where(x => x is AuthorizeAttribute)
+                .Cast<AuthorizeAttribute>()
+                .Any(x => !x.IsAuthorized(controller.Identity)))
+            {
+                return new UnAuthorizedResult();
             }
 
             return null;

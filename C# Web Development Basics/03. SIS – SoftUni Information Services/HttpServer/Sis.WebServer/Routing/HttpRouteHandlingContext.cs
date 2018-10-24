@@ -24,6 +24,7 @@
             {
                 return this.ResourceHandler.Handle(request);
             }
+
             return this.ControllerHandler.Handle(request);
         }
 

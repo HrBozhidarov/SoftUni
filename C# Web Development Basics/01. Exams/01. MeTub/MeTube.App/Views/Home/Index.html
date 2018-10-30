@@ -1,0 +1,52 @@
+﻿@if(!User.IsLoggedIn)
+{
+<div class="jumbotron">
+    <p class="h1 display-3">Welcome to MeTube&trade;!</p>
+    <p class="h3">The simplest, easiest to use, most comfortable Multimedia Application.</p>
+    <hr class="my-3">
+    <p><a href="/login">Login</a> if you have an account or <a href="/register">Register</a> now and start tubing.</p>
+</div>
+}
+@else
+{
+<h2 class="text-center text-info">Welcome, $@User.Username</h2>
+
+
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+    <div class="row justify-content-around">
+
+        @for(var i = 0; i < Model.Count(); i++)
+        {
+            @if(i % 3 == 0 && i != 0)
+            {
+                <div class="w-100"></div>
+            }
+
+            {var item = @Model[i];}
+                
+                <div class="col-md-4 mt-3 text-center">
+                  
+                 <a href="/tubes/details?id=@item.Id"> 
+                     <img src="https://img.youtube.com/vi/@item.YoutubeId/mqdefault.jpg" />
+                 </a>
+
+                    <p class="text-center">@item.Title <br />@item.Author</p>
+                </div>
+
+            @if(i == Model.Count() - 1)
+            {
+                {int rowConteiners = Model.Count() % 3;}
+                {rowConteiners = rowConteiners == 0 ? 3 : rowConteiners;}
+                {int neededConteiners = 3 - rowConteiners;}
+
+                @for(var j = 0; j < neededConteiners; j++)
+                {
+                     <div class="col-md-4 mt-3"></div>
+                }
+            }
+        }
+        </div>
+    </div>
+</div>
+}

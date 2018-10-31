@@ -1,0 +1,40 @@
+﻿<hr class="my-2">
+<h1 class="text-center">All Cats</h1>
+<hr class="my-2">
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="row justify-content-around">
+            {var dic = new Dictionary<string, string>() { ["american"] = "american-shorthair.jpg", ["munchkin"] = "munchkin.jpg", ["siamese"] = "siamese.jpg", ["streettranscended"] = "street-transcended.jpg" };}
+    @for(var i = 0; i < Model.Count(); i++)
+    {
+    @if(i % 3 == 0 && i != 0)
+    {
+    <div class="w-100"></div>
+    }
+
+    {var item = @Model[i];}
+
+    <div class="col-md-4 mt-3 text-center">
+        {var breed = @item.Breed.ToLower();}
+        <img src="/img/@dic[breed]"/>
+        <p class="text-center">
+            <strong>Name: @item.Name</strong> <br /><strong>Age: @item.Age</strong>
+            <br /><strong>Breed: @item.Breed</strong>
+        </p>
+    </div>
+
+    @if(i == Model.Count() - 1)
+    {
+    {int rowConteiners = Model.Count() % 3;}
+    {rowConteiners = rowConteiners == 0 ? 3 : rowConteiners;}
+    {int neededConteiners = 3 - rowConteiners;}
+
+    @for(var j = 0; j < neededConteiners; j++)
+    {
+    <div class="col-md-4 mt-3"></div>
+    }
+    }
+    }
+</div>
+    </div>
+</div>

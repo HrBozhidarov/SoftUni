@@ -1,0 +1,51 @@
+﻿<h1 class="text-center">Edit Product</h1>
+<hr class="hr-2 bg-dark" />
+<form class="mx-auto w-50" method="post" action="/products/delete">
+    <div class="form-group">
+        <label for="Name" class="mb-1">Name</label>
+        <input type="text" readonly  value="@Model.Name" name="Name" class="form-control" id="Name" placeholder="Name...">
+    </div>
+    <div class="form-group">
+        <label for="Price" class="mb-1">Price</label>
+        <input type="number" readonly  value="@Model.Price" name="Price" class="form-control" id="Price" placeholder="Price...">
+    </div>
+
+    <div class="form-group">
+        <label for="Description" class="mb-1">Description</label>
+        <textarea name="Description" readonly  class="form-control textarea" id="Description" rows="5" placeholder="Description...">@Model.Description</textarea>
+    </div>
+    <input type="text" name="Id" readonly  hidden value="@Model.Id" />
+
+    <h3 class="text-center">Product Type</h3>
+    <hr class="hr-2 w-50 bg-dark" />
+
+    {var types=new string[]{"Food","Domestic","Health","Cosmetic","Other"};}
+
+    <div class="row justify-content-around">
+
+        @for(int i=0;i < types.Count();i++)
+        {
+        {var type=types[i];}
+
+        @if(Model.ProductType==type)
+        {
+        <div class="col-md-2 ml-3">
+            <input name="ProductType" readonly  id="@type" value=@type type="radio" checked />
+            <label for="@type" class="text-mishmash">@type</label>
+        </div>
+        }
+        @else
+        {
+        <div class="col-md-2 ml-3">
+            <input readonly  name="ProductType" id="@type" value=@type type="radio" />
+            <label for="@type" class="text-mishmash">@type</label>
+        </div>
+        }
+        }
+    </div>
+    <hr class="hr-2 w-50 bg-dark" />
+    <div class="text-center">
+        <button type="submit" class="btn chushka-bg-color mr-4">Delete</button>
+        <a href="javascript:history.back()" role="button" class="btn chushka-bg-color ml-4">Cancel</a>
+    </div>
+</form>

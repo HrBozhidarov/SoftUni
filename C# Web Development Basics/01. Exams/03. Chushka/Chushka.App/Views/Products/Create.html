@@ -1,0 +1,50 @@
+﻿<h1 class="text-center text-mishmash">Create Product</h1>
+<hr class="hr-2 bg-dark" />
+<form class="mx-auto w-50" method="post" action="/products/create">
+    <div class="form-group">
+        <label for="Name" class="mb-1">Name</label>
+        <input type="text" name="Name" class="form-control" id="Name" placeholder="Name...">
+    </div>
+    <div class="form-group">
+        <label for="Price" class="mb-1">Price</label>
+        <input type="text" name="Price" class="form-control" id="Price" placeholder="Price...">
+    </div>
+
+    <div class="form-group text-mishmash">
+        <label for="Description" class="mb-1">Description</label>
+        <textarea name="Description" class="form-control textarea" id="Description" rows="5" placeholder="Description..."></textarea>
+    </div>
+
+    <h3 class="text-mishmash text-center">Product Type</h3>
+    <hr class="hr-2 w-50 bg-dark" />
+
+
+    <div class="row justify-content-around">
+        <div class="col-md-2 ml-3">
+            <input name="ProductType" id="Food" value=1 type="radio" />
+            <label for="Food" class="text-mishmash">Food</label>
+        </div>
+        <div class="col-md-2">
+            <input name="ProductType" id="Domestic" value=2 type="radio" />
+            <label for="Domestic" class="text-mishmash">Domestic</label>
+        </div>
+        <div class="col-md-2">
+            <input name="ProductType" id="Health" value=3 type="radio" />
+            <label for="Health" class="text-mishmash">Health</label>
+        </div>
+        <div class="col-md-2">
+            <input name="ProductType" id="Cosmetic" value=4 type="radio" />
+            <label for="Cosmetic" class="text-mishmash">Cosmetic</label>
+        </div>
+        <div class="col-md-2">
+            <input name="ProductType" id="Other" value=5 type="radio" />
+            <label for="Other" class="text-mishmash">Other</label>
+        </div>
+    </div>
+    <hr class="hr-2 w-50 bg-dark" />
+    <div class="row">
+        <div class="col-12 text-center">
+            <button type="submit" class="btn chushka-bg-color">Create</button>
+        </div>
+    </div>
+</form>

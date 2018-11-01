@@ -1,0 +1,39 @@
+﻿<table class="table">
+    <thead>
+        <tr>
+            <td scope="col">#</td>
+            <td scope="col">Order</td>
+            <td scope="col">Customer</td>
+            <td scope="col">Product</td>
+            <td scope="col">Ordered On</td>
+        </tr>
+    </thead>
+    <tbody>
+        @for(var i=0;i < Model.Count(); i++)
+        {
+            {var item=Model[i];}
+            {var count = i+1;}
+            @if(i%2==0)
+            {
+                <tr class="chushka-bg-color">
+                <td>@count</td>
+                <td>@item.OrderId</td>
+                <td>@item.Customer</td>
+                <td>@item.Product</td>
+                <td>@item.OrderedOn</td>
+                </tr>
+            }
+            @else 
+             {
+                 <tr>
+                    <td>@count</td>
+                    <td>@item.OrderId</td>
+                    <td>@item.Customer</td>
+                    <td>@item.Product</td>
+                    <td>@item.OrderedOn</td>
+                </tr>
+             }
+        }
+        
+    </tbody>
+</table>

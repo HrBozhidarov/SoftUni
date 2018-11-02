@@ -1,0 +1,29 @@
+﻿<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td scope="col">#</td>
+                    <td scope="col">Task</td>
+                    <td scope="col">Level</td>
+                    <td scope="col">Status</td>
+                    <td scope="col">Action</td>
+                </tr>
+            </thead>
+            <tbody>
+                @for(var i = 0;i < @Model.Count();i++)
+                {
+                {var item = @Model[i];}
+                {var count = i + 1;}
+                <tr>
+                    <td clas="col-md-1">@count</td>
+                    <td clas="col-md-4">@item.TaskName</td>
+                    <td clas="col-md-2">@item.Level</td>
+                    <td clas="col-md-2">@item.Status</td>
+                    <td clas="col-md-3"><a href="/reports/details?id=@item.Id" class="btn bg-torshia nav-link-white" role="button">Details</a></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,123 @@
+﻿    @if(User.Role=="Admin")
+    {
+<h2 class="text-center text-mishmash">Welcome, Admin-@User.Username</h2>
+    }
+    @else
+    {
+<h2 class="text-center text-mishmash">Welcome, @User.Username</h2>
+    }
+
+<h3 class="text-mishmash">Your channels</h3>
+<hr class="hr-2 bg-mishmash" />
+
+<div class="row justify-content-between mx-1">
+    @for(var i = 0; i < Model.YourChannels.Count(); i++)
+    {
+    @if(i % 5 == 0 && i != 0)
+    {
+    <div class="w-100"></div>
+    }
+
+    {var item = @Model.YourChannels.ToList()[i];}
+
+    <div class="bg-mishmash text-white mb-3 col-lg-2">
+        <h6 class="text-center my-3">@item.Name</h6>
+        <hr class="bg-white hr-2 w-75">
+        <h6 class="task-title text-white text-center my-4">Lesson: @item.ChannelType</h6>
+        <hr class="bg-white hr-2 w-75">
+        <h6 class="text-center">@item.FollewrsCoun Following</h6>
+        <hr class="bg-white hr-2 w-75">
+        <h6 class="text-center">Following</h6>
+    </div>
+
+    @if(i == Model.YourChannels.Count() - 1)
+    {
+    {int rowConteiners = Model.YourChannels.Count() % 5;}
+    {rowConteiners = rowConteiners == 0 ? 5 : rowConteiners;}
+    {int neededConteiners = 5 - rowConteiners;}
+
+    @for(var j = 0; j < neededConteiners; j++)
+    {
+    <div class="col-lg-2"></div>
+    }
+    }
+    }
+</div>
+
+<h3 class="text-mishmash">Suggested</h3>
+<hr class="hr-2 bg-mishmash" />
+<div class="row justify-content-between mx-1">
+    @for(var i = 0; i < Model.SuggestedChannels.Count(); i++)
+    {
+    @if(i % 5 == 0 && i != 0)
+    {
+    <div class="w-100"></div>
+    }
+
+    {var item = @Model.SuggestedChannels.ToList()[i];}
+
+    <div class="bg-mishmash text-white mb-3 col-lg-2">
+        <h6 class="text-center my-3">@item.Name</h6>
+        <hr class="bg-white hr-2 w-75">
+        <h6 class="task-title text-white text-center my-4">Lesson: @item.ChannelType</h6>
+        <hr class="bg-white hr-2 w-75">
+        <h6 class="text-center">@item.FollewrsCoun Following</h6>
+        <hr class="bg-white hr-2 w-75">
+        <div class="d-flex justify-content-between w-50 mx-auto mb-3">
+            <a href="/channels/following?id=@item.Id"><h6 class="text-center text-white">Follow</h6></a>
+            <a href="/channels/details?id=@item.Id"><h6 class="text-center text-white">Details</h6></a>
+        </div>
+    </div>
+
+    @if(i == Model.SuggestedChannels.Count() - 1)
+    {
+    {int rowConteiners = Model.SuggestedChannels.Count() % 5;}
+    {rowConteiners = rowConteiners == 0 ? 5 : rowConteiners;}
+    {int neededConteiners = 5 - rowConteiners;}
+
+    @for(var j = 0; j < neededConteiners; j++)
+    {
+    <div class="col-lg-2"></div>
+    }
+    }
+    }
+</div>
+
+<h3 class="text-mishmash">See Other</h3>
+<hr class="hr-2 bg-mishmash" />
+<div class="row justify-content-between mx-1">
+    @for(var i = 0; i < Model.SeeOtherChannels.Count(); i++)
+    {
+    @if(i % 5 == 0 && i != 0)
+    {
+    <div class="w-100"></div>
+    }
+
+    {var item = @Model.SeeOtherChannels.ToList()[i];}
+
+    <div class="bg-mishmash text-white mb-5 col-lg-2">
+        <h6 class="text-center my-3">@item.Name</h6>
+        <hr class="bg-white hr-2 w-75">
+        <h6 class="task-title text-white text-center my-4">Lesson: @item.ChannelType</h6>
+        <hr class="bg-white hr-2 w-75">
+        <h6 class="text-center">@item.FollewrsCoun Following</h6>
+        <hr class="bg-white hr-2 w-75">
+        <div class="d-flex justify-content-between w-50 mx-auto mb-3">
+            <a href="/channels/following?id=@item.Id"><h6 class="text-center text-white">Follow</h6></a>
+            <a href="/channels/details?id=@item.Id"><h6 class="text-center text-white">Details</h6></a>
+        </div>
+    </div>
+
+    @if(i == Model.SeeOtherChannels.Count() - 1)
+    {
+    {int rowConteiners = Model.SeeOtherChannels.Count() % 5;}
+    {rowConteiners = rowConteiners == 0 ? 5 : rowConteiners;}
+    {int neededConteiners = 5 - rowConteiners;}
+
+    @for(var j = 0; j < neededConteiners; j++)
+    {
+    <div class="col-lg-2 mb-3"></div>
+    }
+    }
+    }
+</div>

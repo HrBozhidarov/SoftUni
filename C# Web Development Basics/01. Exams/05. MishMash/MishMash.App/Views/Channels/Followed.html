@@ -1,0 +1,38 @@
+﻿<h1>following</h1>
+<hr class="hr-2 bg-mishmash" />
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <table class="table">
+            <thead>
+                <tr class="d-flex">
+                    <td class="col-lg-1">#</td>
+                    <td class="col-lg-5">Channel</td>
+                    <td class="col-lg-2">Type</td>
+                    <td class="col-lg-2">Followers</td>
+                    <td class="col-lg-2">Action</td>
+                </tr>
+            </thead>
+            <tbody>
+
+                @for(int i =0; i< @Model.Count(); i++)
+                {
+                {var item=Model[i];}
+                {var count = i + 1;}
+
+                <tr class="d-flex">
+                    <td class="col-lg-1">@count</td>
+                    <td class="col-lg-5">@item.Name</td>
+                    <td class="col-lg-2">@item.ChannelType</td>
+                    <td class="col-lg-2">@item.FollewrsCoun</td>
+                    <td class="col-lg-2">
+                        <a href="/channels/unfollow?id=@item.Id" role="button" class="btn bg-mishmash nav-link-white">Unfollow</a>
+                        <a href="/channels/details?id=@item.Id" role="button" class="btn bg-mishmash nav-link-white">Details</a>
+                    </td>
+                </tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+</div>

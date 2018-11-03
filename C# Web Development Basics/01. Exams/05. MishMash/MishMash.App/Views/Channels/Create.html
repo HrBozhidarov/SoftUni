@@ -1,0 +1,53 @@
+﻿<h1 class="text-mishmash text-center">Create Channel</h1>
+<div class="w-50 mx-auto">
+    <hr class="hr-2 bg-mishmash" />
+    <form method="post">
+        <div class="form-group">
+            <label for="Name" class="mb-1 text-mishmash">Name</label>
+            <input id="Name" class="form-control" type="text" placeholder="Name..." name="Name" />
+        </div>
+        <div class="form-group">
+            <label for="Description" class="mb-1 text-mishmash">Description</label>
+            <textarea id="Description" class="form-control" type="text" rows="5" placeholder="Description..." name="Description"></textarea>
+        </div>
+        <div class="form-group">
+            <div class="text-center"><label for="Tags" class="mb-1 text-mishmash">Tags</label></div>
+            <input id="Tags" class="form-control" type="text" placeholder="Tag1, Tag2, Tag3..." name="Tags" />
+        </div>
+        <div class="form-group text-center">
+            <h3 class="text-center text-mishmash">Channel Type</h3>
+            <hr class="hr-2 bg-mishmash w-50" />
+            <div class="row justify-content-around">
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" name="ChannelType" value="1" class="form-check-input">Game
+                    </label>
+                </div>
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" name="ChannelType" value="2" class="form-check-input">Motivation
+                    </label>
+                </div>
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" name="ChannelType" value="3" class="form-check-input">Lessons
+                    </label>
+                </div>
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" name="ChannelType" value="4" class="form-check-input">Radio
+                    </label>
+                </div>
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" name="ChannelType" value="5" class="form-check-input">Other
+                    </label>
+                </div>
+            </div>
+            <hr class="hr-2 bg-mishmash w-50" />
+        </div>
+        <div class="text-center">
+            <button class="btn bg-mishmash nav-link-white" type="submit">Create</button>
+        </div>
+    </form>
+</div>

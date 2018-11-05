@@ -1,0 +1,28 @@
+﻿<h1 class="text-panda text-center">Pending Shipment</h1>
+<hr class="hr-2 bg-panda" />
+<table class="table table-bordered text-panda table-hover">
+    <thead>
+        <tr class="text-center">
+            <th><strong>id</strong></th>
+            <th><strong>Fee</strong></th>
+            <th><strong>Issued On</strong></th>
+            <th><strong>Recipient</strong></th>
+            <th><strong>Actions</strong></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @for(int i = 0; i < Model.Count();i++)
+        {
+        {var item = @Model[i];}
+        <tr class="text-center">
+            <td>@item.Id</td>
+            <td>@item.Fee</td>
+            <td>@item.IsshuedOn</td>
+            <td>@item.Recipient</td>
+            <td><a href="/receipts/details?id=@item.Id" class="bg-panda text-white btn" role="button">Details</a></td>
+        </tr>
+        }
+
+    </tbody>
+</table>

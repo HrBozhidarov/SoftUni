@@ -1,0 +1,54 @@
+﻿
+@if(User.Role=="Admin")
+{
+<h1 class="text-panda text-center">Hello, Administrator @User.Username!</h1>
+}
+@else
+{
+<h1 class="text-panda text-center">Hello, @User.Username!</h1>
+}
+
+<hr class="hr-2 bg-panda" />
+
+<div class="row justify-content-between text-panda">
+    <div class="col-lg-3 ml-1">
+        <h5 class="text-center">Pending</h5>
+    </div>
+    <div class="col-lg-3">
+       <h5 class="text-center">Shipped</h5>
+    </div>
+    <div class="col-lg-3 mr-3">
+        <h5 class="text-center">Delivered</h5>
+    </div>
+</div>
+
+<div class="row justify-content-between ml-1 text-panda">
+    <div class="col-lg-3 border-panda h-auto">
+        @foreach(var item in Model.Pending)
+        {
+        <div class="row mx-2 my-2 justify-content-between">
+            <span class="align-baseline mt-1">@item.Description</span>
+            <a class="bg-panda text-white btn" role="button" href="packages/details?id=@item.Id">Details</a>
+        </div>
+        }
+    </div>
+
+    <div class="col-lg-3 border-panda">
+        @foreach(var item in Model.Shipped)
+        {
+        <div class="row mx-2 my-2 justify-content-between">
+            <span class="align-baseline mt-1">@item.Description</span>
+            <a class="bg-panda text-white btn" role="button" href="packages/details?id=@item.Id">Details</a>
+        </div>
+        }
+    </div>
+    <div class="col-lg-3 border-panda mr-3">
+        @foreach(var item in Model.Delivered)
+        {
+        <div class="row mx-2 my-2 justify-content-between">
+            <span class="align-baseline mt-1">@item.Description</span>
+            <a class="bg-panda text-white btn" role="button" href="packages/Acquire?id=@item.Id">Acquire</a>
+        </div>
+        }
+    </div>
+</div>

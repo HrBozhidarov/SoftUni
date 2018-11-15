@@ -1,0 +1,76 @@
+﻿@model ProductOperationViewModel
+
+<form class="mx-auto w-50" method="post">
+    <div class="form-group">
+        <label asp-for="Name" class="mb-1"></label>
+        <input asp-for="Name" value="@Model.Name" disabled="@(Model.DisableValue=="" ? null : "disabled")" class="form-control" placeholder="Name...">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Price" class="mb-1"></label>
+        <input asp-for="Price" value="@Model.Price" disabled="@(Model.DisableValue=="" ? null : "disabled")" class="form-control" placeholder="Price...">
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="form-group text-mishmash">
+        <label asp-for="Description" class="mb-1"></label>
+        <textarea asp-for="Description" disabled="@(Model.DisableValue=="" ? null : "disabled")" class="form-control textarea" rows="5" placeholder="Description...">@Model.Description</textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <h3 class="text-mishmash text-center">Product Type</h3>
+    <hr class="hr-2 w-50 bg-dark" />
+
+    <input type="text" name="Id" readonly hidden value="@Model.Id" />
+
+    @{
+        var radios = new string[] { "Food", "Domestic", "Health", "Cosmetic", "Other", };
+    }
+
+    <div class="row justify-content-around">
+        @{ var inChecked = ""; }
+
+        @if (Model.ProductType == 1)
+        {
+            inChecked = Model.Checked;
+        }
+        <div class="col-md-2 ml-3">
+            <input @inChecked @Model.DisableValue name="ProductType" id="@radios[0]" value=1 type="radio" />
+            <label for="@radios[0]" class="text-mishmash">Food</label>
+        </div>
+        @{inChecked = "";}
+
+        @for (int i = 2; i <= 5; i++)
+        {
+            @if (i == Model.ProductType)
+            {
+                inChecked = Model.Checked;
+            }
+
+            <div class="col-md-2">
+                <input @inChecked @Model.DisableValue name="ProductType" id="@radios[i-1]" value=@i type="radio" />
+                <label for="@radios[i-1]" class="text-mishmash">@radios[i - 1]</label>
+            </div>
+
+            inChecked = "";
+        }
+
+    </div>
+    <hr class="hr-2 w-50 bg-dark" />
+    @if (Model.IsInEditUrl || Model.IsInDeleteUrl)
+    {
+        var buttonName = (Model.IsInDeleteUrl ? "Delete" : "Edit");
+
+        <div class="text-center">
+            <button type="submit" class="btn chushka-bg-color mr-4">@buttonName</button>
+            <a href="javascript:history.back()" role="button" class="btn chushka-bg-color ml-4">Cancel</a>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-12 text-center">
+                <button type="submit" class="btn chushka-bg-color">Create</button>
+            </div>
+        </div>
+    }
+</form>

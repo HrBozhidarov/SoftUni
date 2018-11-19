@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <div class="jumbotron mt-3 eventures-bg-color">
+        <h1>Eventures - The best ticket service in the world.</h1>
+        <hr class="hr-bg-color hr-2" />
+        <h3><a class="text-primary" href="/account/login">Login</a> if you have an account.</h3>
+        <h3><a class="text-primary" href="/account/register">Register</a> if you don't.</h3>
+    </div>
+}
+else
+{
+    <div class="jumbotron mt-3 eventures-bg-color">
+        <h1 class="text-center">Greerings, Administrator - Admin!</h1>
+        <hr class="bg-secondary hr-2" />
+        <h3 class="text-center text-secondary">Enjoy your work.</h3>
+    </div>
+}

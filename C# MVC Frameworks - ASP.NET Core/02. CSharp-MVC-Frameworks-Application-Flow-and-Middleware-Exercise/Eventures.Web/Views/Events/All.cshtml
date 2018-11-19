@@ -1,0 +1,35 @@
+﻿@model List<EventTableModel>
+
+@{
+    ViewData["Title"] = "All";
+}
+
+<h2 class="text-center">All Events</h2>
+<hr class="hr-2 hr-bg-color" />
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Start</th>
+            <th scope="col">End</th>
+            <th scope="col">Place</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            var eventItem = Model[i];
+
+            <tr>
+                <td>@(i + 1)</td>
+                <td>@eventItem.Name</td>
+                <td>@eventItem.Start</td>
+                <td>@eventItem.End</td>
+                <td>@eventItem.Place</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr class="hr-2 hr-bg-color" />

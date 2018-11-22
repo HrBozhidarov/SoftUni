@@ -38,7 +38,7 @@ namespace BookStore.Web.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [EmailAddress]
+            [StringLength(20, ErrorMessage = "Username have to be between 3 and 20 symbols.", MinimumLength = 3)]
             public string Username { get; set; }
 
             [Required]

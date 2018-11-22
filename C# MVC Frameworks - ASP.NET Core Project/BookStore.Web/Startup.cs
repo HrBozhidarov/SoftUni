@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using BookStore.Models;
 using AutoMapper;
+using BookStore.Web.Middlewares.ExtensionMiddleware;
 
 namespace BookStore.Web
 {
@@ -73,11 +74,14 @@ namespace BookStore.Web
                 app.UseHsts();
             }
 
+            app.SeedData();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            app.PreventLoginRegisterAccessWhenUserIsAthenticated();
 
             app.UseMvc(routes =>
             {

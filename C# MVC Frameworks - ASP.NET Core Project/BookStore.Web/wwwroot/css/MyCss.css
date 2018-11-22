@@ -1,0 +1,32 @@
+﻿nav a {
+    color: #28c491
+}
+
+#navbarDropdownMenuLink-4 {
+    color: #28c491
+}
+
+#navBarHome {
+    color: #28c491
+}
+
+#navbarDropdownMenuLink-4:hover {
+    color: beige;
+}
+
+#navBarHome:hover {
+    color: beige;
+}
+
+nav a:hover {
+    text-decoration: none;
+    color: beige;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    border: 0;
+    width: 100%;
+    color: #28c491;
+}

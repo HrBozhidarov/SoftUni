@@ -21,7 +21,7 @@
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <a id="navBarHome" class="navbar-brand" href="/">BookStore</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -39,12 +39,12 @@
     </nav>
     <partial name="_CookieConsentPartial" />
 
-    <div class="container body-content">
+    <div class="container-fluid body-content pading-left-riht-zero mb-5">
         @RenderBody()
     </div>
-
-    <footer>
-        <div class="container-fluid bg-dark">
+    <br />
+    <footer class="mt-5">
+        <div class="container-fluid">
             <div class="p-2 text-center">
                 &copy; CopyRight Sanity Web Design Studios 2018. All rights reserved.
             </div>

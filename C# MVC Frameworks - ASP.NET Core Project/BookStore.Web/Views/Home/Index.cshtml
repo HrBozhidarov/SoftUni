@@ -2,10 +2,20 @@
     ViewData["Title"] = "Home Page";
 }
 
+<div class="jumbotron specialjum .jumbotron bg-cover mt-2">
+   <div class="row justify-context-center">
+       <div class="col-md-12 mx-auto">
+           <h1 style="color:black" class="text-center font-weight-bold">WELCOME TO THE BOOKSTORE</h1>
+       </div>
+   </div>
+       
 
-<div class="p-2 mt-5 mx-auto">
+</div>
+
+@*for book page*@
+@*<div class="p-2 mt-5 mx-auto mb-3">
     <div class="row justify-context-center text-center mx-auto">
-        <div class="col-lg-6 mx-auto">
+        <div class="col-lg-5 col-md-8 col-sm-10 col-xs-4 mx-auto">
             <form role="search" method="post" class="form search-form" action="#">
                 <div class="input-group">
                     <input name="s" type="text" class="form-control" placeholder="Search in this site">
@@ -14,6 +24,41 @@
                     </span>
                 </div>
             </form>
+        </div>
+    </div>
+</div>*@
+
+<div id="groupBook" class="row">
+    <div class="col-lg-3 mx-auto">
+        <h2 class="mb-3">The Latest</h2>
+        <ul class="list-group mb-3">
+            <li class="list-group-item"><a href="#" class="btn w-100" role="button">New Release</a></li>
+        </ul>
+        <h2 class="mb-10">Categories</h2>
+        <ul class="list-group">
+            <li class="list-group-item"><a href="#" class="btn w-100" role="button">All</a></li>
+            <li class="list-group-item"><a href="#" class="btn w-100" role="button">Fiction</a></li>
+            <li class="list-group-item"><a href="#" class="btn w-100" role="button">Romance</a></li>
+            <li class="list-group-item"><a href="#" class="btn w-100" role="button">Adventure</a></li>
+            <li class="list-group-item"><a href="#" class="btn w-100" role="button">Thriller</a></li>
+        </ul>
+    </div>
+    <div class="col-lg-8 mx-auto my-3">
+        <div class="row justify-content-around text-center">
+            <div class="col-lg-4 my-3">
+                <img src="~/images/6862512-cosmos.jpg" class="img-fluid max-width: 100%" />
+                <div class="text-center">sadads</div>
+                <div class="text-center">sadads</div>
+                <div class="text-center">sadads</div>
+                <div class="text-center">sadads</div>
+                <div class="text-center">sadads</div>
+            </div>
+            <div class="col-lg-4 my-3">
+                <img id="asd" src="~/images/6862512-cosmos.jpg" class="img-fluid max-width: 100%" />
+            </div>
+            <div class="col-lg-4 my-3">
+                <img id="asd" src="~/images/6862512-cosmos.jpg" class="img-fluid max-width: 100%" />
+            </div>
         </div>
     </div>
 </div>

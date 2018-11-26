@@ -2,7 +2,7 @@
 using System.Linq;
 using BookStore.Models;
 
-namespace BookStore.Comman
+namespace BookStore.Common
 {
     public class AutomamapperProfile : Profile
     {

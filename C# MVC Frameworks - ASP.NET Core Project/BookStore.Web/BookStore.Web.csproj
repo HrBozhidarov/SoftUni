@@ -16,6 +16,8 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\" />
+    <Folder Include="Areas\Books\Data\" />
+    <Folder Include="Areas\Books\Models\" />
     <Folder Include="Areas\Identity\Services\" />
   </ItemGroup>
 
@@ -24,6 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Areas\Books\Views\_ViewImports.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Areas\Identity\Views\Shared\_Layout.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

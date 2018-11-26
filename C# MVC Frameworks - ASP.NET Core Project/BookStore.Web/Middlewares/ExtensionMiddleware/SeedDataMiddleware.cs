@@ -1,4 +1,5 @@
 ﻿using BookStore.Models;
+using BookStore.Services.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,8 +11,13 @@ namespace BookStore.Web.Middlewares.ExtensionMiddleware
     public class SeedDataMiddleware
     {
         private const string AdminRole = "Admin";
+        private const string AdminUsername = "admin1";
         private const string AdminEmail = "admin@admin";
         private const string AdminPassword = "123456";
+        private const string FictionCategoryName = "Fiction";
+        private const string RomanceCategoryName = "Romance";
+        private const string AdventureCategoryName = "Adventure";
+        private const string ThrillerCategoryName = "Thriller";
 
         private readonly RequestDelegate next;
 
@@ -20,7 +26,35 @@ namespace BookStore.Web.Middlewares.ExtensionMiddleware
             this.next = next;
         }
 
-        public async Task InvokeAsync(HttpContext httpContext, IServiceProvider serviceProvider)
+        public async Task InvokeAsync(HttpContext httpContext, IServiceProvider serviceProvider, ICategoryService categoryService)
+        {
+            await CreateAdminWithRoleAsync(serviceProvider);
+            await AddCategories(categoryService);
+            await next(httpContext);
+        }
+
+        private Task AddCategories(ICategoryService categoryService)
+        {
+            if (!categoryService.IfCategoryExists(FictionCategoryName))
+            {
+                var categories = new string[]
+                {
+                     FictionCategoryName,
+                     RomanceCategoryName,
+                     AdventureCategoryName,
+                     ThrillerCategoryName
+                };
+
+                foreach (var category in categories)
+                {
+                    categoryService.Create(category);
+                }
+            }
+
+            return Task.CompletedTask;
+        }
+
+        private async Task CreateAdminWithRoleAsync(IServiceProvider serviceProvider)
         {
             var userManager = serviceProvider.GetService<UserManager<User>>();
             var roleManager = serviceProvider.GetService<RoleManager<IdentityRole>>();
@@ -38,7 +72,7 @@ namespace BookStore.Web.Middlewares.ExtensionMiddleware
             {
                 var user = new User
                 {
-                    UserName = "admin1",
+                    UserName = AdminUsername,
                     Email = AdminEmail,
                 };
 
@@ -46,8 +80,6 @@ namespace BookStore.Web.Middlewares.ExtensionMiddleware
 
                 await userManager.AddToRoleAsync(user, AdminRole);
             }
-
-            await next(httpContext);
         }
     }
 }

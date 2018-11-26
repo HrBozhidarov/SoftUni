@@ -9,11 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStore.Data", "BookStore
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStore.Models", "BookStore.Models\BookStore.Models.csproj", "{83257167-9E1D-4343-AE20-460A73398A7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.Services", "BookStore.Services\BookStore.Services.csproj", "{34A593AC-A119-4325-91A6-2C5BEAB4B886}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStore.Services", "BookStore.Services\BookStore.Services.csproj", "{34A593AC-A119-4325-91A6-2C5BEAB4B886}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.Test", "BookStore.Test\BookStore.Test.csproj", "{E3FDC7B2-1DED-4E85-B754-4D79F9F2CB08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStore.Test", "BookStore.Test\BookStore.Test.csproj", "{E3FDC7B2-1DED-4E85-B754-4D79F9F2CB08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.Comman", "BookStore.Comman\BookStore.Comman.csproj", "{11DD7774-1524-4EA1-B137-1B452C913709}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.Common", "BookStore.Common\BookStore.Common.csproj", "{E6CCD2DA-8E62-42D6-9806-2F506CD7163E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{E3FDC7B2-1DED-4E85-B754-4D79F9F2CB08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3FDC7B2-1DED-4E85-B754-4D79F9F2CB08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3FDC7B2-1DED-4E85-B754-4D79F9F2CB08}.Release|Any CPU.Build.0 = Release|Any CPU
-		{11DD7774-1524-4EA1-B137-1B452C913709}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{11DD7774-1524-4EA1-B137-1B452C913709}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{11DD7774-1524-4EA1-B137-1B452C913709}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{11DD7774-1524-4EA1-B137-1B452C913709}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6CCD2DA-8E62-42D6-9806-2F506CD7163E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6CCD2DA-8E62-42D6-9806-2F506CD7163E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6CCD2DA-8E62-42D6-9806-2F506CD7163E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6CCD2DA-8E62-42D6-9806-2F506CD7163E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

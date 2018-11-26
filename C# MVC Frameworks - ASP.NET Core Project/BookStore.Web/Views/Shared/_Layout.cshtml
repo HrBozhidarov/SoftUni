@@ -7,7 +7,7 @@
 
     <environment include="Development">
         @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/css/site.css" />*@
+            <link rel="stylesheet" href="~/css/site.css" />*@
         <link rel="stylesheet" href="~/css/reset.css" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="~/css/MyCss.css" />
@@ -22,16 +22,41 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light">
-        <a id="navBarHome" class="navbar-brand" href="/">BookStore</a>
+        <a id="navBarHome" class="navbar-brand navBarHome" href="/">BookStore</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto mt-3 mt-lg-0">
                 <li class="nav-link mr-3"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                <li class="nav-link mr-3"><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                <li class="nav-link mr-3"><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                <li class="nav-link mr-3"><a asp-area="Admin" asp-controller="Home" asp-action="Index">AdminPage</a></li>
+                @if (!User.IsInRole("Admin"))
+                {
+                    <li class="nav-link mr-3"><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    <li class="nav-link mr-3"><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                }
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <li class="nav-item dropdown mr-3">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Category
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a asp-area="" asp-controller="Categories" asp-action="Create" class="dropdown-item">Create</a>
+                            <a asp-area="" asp-controller="Categories" asp-action="Edit" class="dropdown-item">Edit</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown mr-3">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBook" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Book
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownBook">
+                            <a asp-area="Books" asp-controller="Books" asp-action="Create" class="dropdown-item">Create</a>
+                            <a asp-area="Books" asp-controller="Books" asp-action="Edit" class="dropdown-item">Edit</a>
+                        </div>
+                    </li>
+                }
             </ul>
 
             <partial name="_LoginPartial" />

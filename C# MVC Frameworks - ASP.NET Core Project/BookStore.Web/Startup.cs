@@ -15,6 +15,8 @@ using Microsoft.Extensions.DependencyInjection;
 using BookStore.Models;
 using AutoMapper;
 using BookStore.Web.Middlewares.ExtensionMiddleware;
+using BookStore.Services.Contracts;
+using BookStore.Services;
 
 namespace BookStore.Web
 {
@@ -40,6 +42,8 @@ namespace BookStore.Web
             services.AddDbContext<BookStoreContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddTransient<ICategoryService, CategoryService>();
+
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequiredLength = 3;
@@ -57,7 +61,11 @@ namespace BookStore.Web
                 .AddEntityFrameworkStores<BookStoreContext>();
 
             services.AddAutoMapper();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

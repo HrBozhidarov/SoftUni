@@ -1,0 +1,44 @@
+﻿@model UserLoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1 class="text-center">Login</h1>
+<hr class="hr-bg-color w-25 hr-2" />
+
+<div asp-validation-summary="All" class="text-danger text-center"></div>
+
+<form class="mx-auto w-25" method="post" action="/account/login">
+    <div class="form-group">
+        <label asp-for="Username"></label>
+        <input asp-for="Username" class="form-control bg-color-input" placeholder="Username...">
+        <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" class="form-control bg-color-input" placeholder="Password...">
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <hr class="hr-bg-color w-100 hr-2" />
+    <div class="form-group text-center">
+        <input asp-for="RememberMe">
+        <label asp-for="RememberMe"></label>
+    </div>
+    <hr class="hr-bg-color w-100 hr-2" />
+    <div class="button-holder d-flex justify-content-center mb-3">
+        <button type="submit" class="btn eventures-bg-color">Login</button>
+    </div>
+    <div class="form-group text-center">
+        <p>
+            <a href="#" class="text-primary">Forgot your password?</a>
+        </p>
+        <p>
+            <a asp-controller="Account" asp-action="Register" class="text-primary">Register as a new user</a>
+        </p>
+    </div>
+</form>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

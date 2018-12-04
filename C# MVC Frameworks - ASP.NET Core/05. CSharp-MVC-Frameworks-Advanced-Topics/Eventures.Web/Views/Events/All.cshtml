@@ -1,0 +1,54 @@
+﻿@model List<EventTableModel>
+
+@{
+    ViewData["Title"] = "All";
+}
+
+<h2 class="text-center">All Events</h2>
+<hr class="hr-2 hr-bg-color" />
+<div class="text-center text-danger" asp-validation-summary="All"></div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Start</th>
+            <th scope="col">End</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            var eventItem = Model[i];
+
+            <tr>
+                <td>@(i + 1)</td>
+                <td>@eventItem.Name</td>
+                <td>@eventItem.Start</td>
+                <td>@eventItem.End</td>
+                <td>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <form asp-controller="Orders" asp-action="Order" asp-route-Id="@eventItem.Id">
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <label class="bold" for="TotalTickets">Tickets</label>
+                                    </div>
+                                    <div style="padding-left:0px; padding-right:0px" class="col-lg-8">
+                                        <input class="form-control" id="TotalTickets" type="text" name="TotalTickets" />
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <input type="submit" value="Order" class="btn eventures-bg-color" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr class="hr-2 hr-bg-color" />

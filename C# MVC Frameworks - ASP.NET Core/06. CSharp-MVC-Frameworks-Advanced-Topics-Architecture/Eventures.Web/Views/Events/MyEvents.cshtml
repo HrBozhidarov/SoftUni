@@ -1,0 +1,48 @@
+﻿@model IPagedList<MyEventsModel>
+
+@{
+    ViewData["Title"] = "MyEvents";
+}
+
+<h1 class="text center mt-3">MyEvents</h1>
+
+<hr class="hr-2 hr-bg-color" />
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Start</th>
+            <th scope="col">End</th>
+            <th scope="col">Tickets</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var count = (Model.PageSize * Model.PageNumber) - Model.PageSize + 1;
+        }
+
+        @foreach (var eventItem in Model)
+        { 
+            <tr>
+                <td>@(count++)</td>
+                <td>@eventItem.Name</td>
+                <td>@eventItem.Start</td>
+                <td>@eventItem.End</td>
+                <td>@eventItem.Tickets</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-center mt-1">
+    @Html.PagedListPager(Model, page => Url.Action("MyEvents","Events", new { page }),
+   new PagedListRenderOptions
+   {
+       LiElementClasses = new string[] { "page-item" },
+       PageClasses = new string[] { "page-link" },
+   })
+</div>
+
+<hr class="hr-2 hr-bg-color" />
+

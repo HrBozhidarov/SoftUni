@@ -1,0 +1,40 @@
+﻿@model Eventures.Data.ViewModels.Users.UserViewModel[]
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center">All Normal Users</h1>
+
+<table class="table w-50 mx-auto">
+    <thead>
+        <tr>
+            <th class="w-25">#</th>
+            <th class="w-25">Username</th>
+            <th class="w-50">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Length; i++)
+        {
+            <tr>
+                <td class="w-25">@(i + 1)</td>
+                <td class="w-25">
+                    @Model[i].Username
+                </td>
+                <td class="w-50">
+                    @if (Model[i].Role != "Admin")
+                    {
+                        <a asp-area="Admin" asp-controller="Admins" asp-action="Promote" asp-route-username="@Model[i].Username" class="btn btn-primary">Promote</a>
+                    }
+                    else
+                    {
+                        <a asp-area="Admin" asp-controller="Admins" asp-action="Demote" asp-route-username="@Model[i].Username" class="btn btn-primary">Demote</a>
+
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

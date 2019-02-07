@@ -78,17 +78,21 @@ function solve() {
 
     function appendToTrucDiv(plateNumber) {
         let appendTires = document.querySelectorAll('section')[1].children[1];
-        let divTruck = document.createElement('div');
-        divTruck.setAttribute('class','truck');
-        divTruck.textContent = plateNumber;
-        appendTires.appendChild(divTruck);
+
+        createElementAndAppend(appendTires,'div','truck',plateNumber);
     }
 
     function appendToTiresDiv(arr) {
         let appendTires = document.querySelectorAll('section')[1].children[0];
-        let divTire = document.createElement('div');
-        divTire.setAttribute('class','tireSet');
-        divTire.textContent = arr.join(' ');
-        appendTires.appendChild(divTire);
+        let content = arr.join(' ');
+
+        createElementAndAppend(appendTires,'div','tireSet',content);
+    }
+
+    function createElementAndAppend(appendChild, element, className, content) {
+        let currentElement = document.createElement(element);
+        currentElement.setAttribute('class',className);
+        currentElement.textContent = content;
+        appendChild.appendChild(currentElement);
     }
 }

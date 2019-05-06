@@ -1,0 +1,18 @@
+{
+  "name": "shop-stop",
+  "version": "1.0.0",
+  "description": "lab nodejs",
+  "main": "index.js",
+  "engine": "12.0.0",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "shop"
+  ],
+  "author": "Hristo Bozhidarov",
+  "license": "MIT",
+  "devDependencies": {
+    "standard": "^12.0.1"
+  }
+}

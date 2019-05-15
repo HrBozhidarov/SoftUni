@@ -1,9 +1,10 @@
 const url = require('url')
 const fs = require('fs')
 const path = require('path')
-const db = require('./../config/database')
+const Product = require('../models/Product')
 const multiparty = require('multiparty')
 const shortid = require('shortid')
+const Category = require('./../models/Category')
 
 module.exports = (req, res) => {
   req.pathname = req.pathname || url.parse(req.url).pathname
@@ -11,8 +12,21 @@ module.exports = (req, res) => {
   if (req.method === 'GET' && req.pathname === '/product/add') {
     fs.readFile(path.join(__dirname, '../views/products/add.html'), (err, data) => {
       if (!err) {
-        res.write(data)
-        res.end()
+        Category.find().then((categories) => {
+          let replacment = '<select class="input-field" name="category">'
+          for (const category of categories) {
+            replacment += `<option value="${category._id}">${category.name}</option>`
+          }
+          replacment += '</select>'
+
+          let html = data.toString().replace('{categories}', replacment)
+          res.writeHead(200, {
+            'Content-Type': 'text/html'
+          })
+          res.write(html)
+          res.end()
+        })
+
         return
       }
 
@@ -32,7 +46,6 @@ module.exports = (req, res) => {
         })
 
         part.on('end', () => {
-          console.log(part.filename)
           let extension = part.filename.split('.').pop()
           let fileName = shortid.generate()
           let filePath = `./content/images/${fileName}.${extension}`
@@ -58,12 +71,18 @@ module.exports = (req, res) => {
     })
 
     form.on('close', () => {
-      db.products.add(product)
-      res.writeHead(302, {
-        'Location': '/'
-      })
+      Product.create(product).then((inserProduct) => {
+        Category.findById(product.category).then(category => {
+          category.products.push(inserProduct._id)
+          category.save()
 
-      res.end()
+          res.writeHead(302, {
+            'Location': '/'
+          })
+
+          res.end()
+        })
+      })
     })
 
     form.parse(req)

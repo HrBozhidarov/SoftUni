@@ -2,7 +2,7 @@ const url = require('url')
 const fs = require('fs')
 const path = require('path')
 const qs = require('querystring')
-const db = require('./../config/database')
+const Product = require('../models/Product')
 
 module.exports = (req, res) => {
   req.pathname = req.pathname || url.parse(req.url).pathname
@@ -16,25 +16,28 @@ module.exports = (req, res) => {
         })
 
         let queryData = qs.parse(url.parse(req.url).query)
-        let products = db.products.getAll()
+        let products
+        Product.find()
+          .then((result) => {
+            products = result
+            if (queryData.query) {
+              products = products.filter(x => x.name.includes(queryData.query))
+            }
+            let dinamycContent = ''
 
-        if (queryData.query) {
-          products = products.filter(x => x.name.includes(queryData.query))
-        }
+            products.forEach(x => {
+              dinamycContent += `<div class="product-card">
+                                  <img src="${x.image}">
+                                  <h2>${x.name}</h2>
+                                  <p>${x.description}</p>
+                                 </div>`
+            })
 
-        let dinamycContent = ''
+            let content = data.toString().replace('{content}', dinamycContent)
+            res.write(content)
+            res.end()
+          })
 
-        products.forEach(x => {
-          dinamycContent += `<div class="product-card">
-                              <img src="${x.image}">
-                              <h2>${x.name}</h2>
-                              <p>${x.description}</p>
-                             </div>`
-        })
-
-        let result = data.toString().replace('{content}', dinamycContent)
-        res.write(result)
-        res.end()
         return
       }
 

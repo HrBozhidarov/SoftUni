@@ -1,0 +1,16 @@
+{
+  "name": "MemeDB",
+  "version": "1.0.0",
+  "description": "MemeDB exercise",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "HB",
+  "license": "MIT",
+  "dependencies": {
+    "formidable": "^1.2.1",
+    "short-id": "0.1.0-1"
+  }
+}

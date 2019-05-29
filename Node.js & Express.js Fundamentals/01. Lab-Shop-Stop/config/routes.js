@@ -6,10 +6,13 @@ let upload = multer({ dest: './content/images' })
 module.exports = (app) => {
   app.get('/', handlers.home.index)
 
+  app.get('/product/delete/:id', handlers.product.deleteProductGet)
+  app.get('/product/buy/:id', handlers.product.buyProduct)
   app.get('/product/edit/:id', handlers.product.editGet)
   app.get('/product/add', handlers.product.addGet)
   app.post('/product/add', upload.single('image'), handlers.product.addPost)
   app.post('/product/edit/:id', upload.single('image'), handlers.product.editPost)
+  app.post('/product/delete/:id', handlers.product.deleteProductPost)
 
   app.get('/category/add', handlers.category.addGet)
   app.get('/category/:category/products', handlers.category.productByCategory)

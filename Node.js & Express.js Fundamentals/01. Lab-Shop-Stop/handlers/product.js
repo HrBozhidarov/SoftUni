@@ -1,5 +1,6 @@
 const Product = require('../models/Product')
 const Category = require('./../models/Category')
+const fs = require('fs')
 
 module.exports.addGet = (req, res) => {
   Category.find()
@@ -90,4 +91,69 @@ module.exports.addPost = (req, res) => {
 
     res.redirect('/')
   })
+}
+
+module.exports.deleteProductGet = (req, res) => {
+  let params = req.params
+  let id = params.id
+
+  Product.findById(id)
+    .then((product) => {
+      if (!product) {
+        res.redirect(`/?error=${encodeURIComponent('Product was not found!')}`)
+        return
+      }
+
+      res.render('products/delete', { product: product })
+    })
+}
+
+module.exports.deleteProductPost = (req, res) => {
+  let params = req.params
+  let id = params.id
+
+  Product.findById(id)
+    .populate('category')
+    .then((product) => {
+      if (!product) {
+        res.redirect(`/?error=${encodeURIComponent('Product was not found!')}`)
+        return
+      }
+
+      let categoryId = product.category.id
+      Category.findById(categoryId)
+        
+        .then((category) => {
+          let index = category.products.indexOf(product.id)
+          category.products.splice(index, 1)
+          category.save()
+
+          Product.deleteOne({ _id: product.id })
+            .then(() => {
+              let imgPath = './' + product.image
+              fs.unlink(imgPath, (err) => {
+                if (err) {
+                  console.log(err)
+                }
+              })
+            })
+
+          res.redirect(`/?success=${encodeURIComponent('Product was deleted!')}`)
+        })
+    })
+}
+
+module.exports.buyProduct = (req, res) => {
+  let params = req.params
+  let id = params.id
+
+  Product.findById(id)
+    .then((product) => {
+      if (!product) {
+        res.redirect(`/?error=${encodeURIComponent('Product was not found!')}`)
+        return
+      }
+
+      res.render('products/buy', { product: product })
+    })
 }

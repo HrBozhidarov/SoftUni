@@ -20,7 +20,7 @@ CubeSchema.path('description')
 
 CubeSchema.path('image')
     .validate(function () {
-        return this.startsWith('https://') && (this.endsWith('.jpg') || this.endsWith('.png'))
+        return this.image.startsWith('https://') && (this.image.endsWith('.jpg') || this.image.endsWith('.png'))
     }, "Image URL must start with https://' or 'Image URL must end with .jpg or .png")
 
 CubeSchema.path('difficulty')

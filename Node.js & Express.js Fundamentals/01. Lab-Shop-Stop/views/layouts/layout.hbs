@@ -13,9 +13,20 @@
   <header>
     <nav class="nav">
       <ul>
-        <li><a href="/">Home Page</a></li>
-        <li><a href="/product/add">Add Product</a></li>
-        <li><a href="/category/add">Add Category</a></li>
+        {{#if user}}
+            <li><a href="/">Home Page</a></li>
+            <li><a href="/product/add">Add Product</a></li>
+            <li><a href="/category/add">Add Category</a></li>
+            <li class="align-right">Welcome {{user.username}}!</li>
+            <li class="align-right">
+              <form id="logout-form" method="POST" action="/users/logout">
+                <a href="javascript:document.getElementById('logout-form').submit()">Logout</a>
+              </form>
+            </li>
+        {{else}}
+            <li class="align-right"><a href="/users/login">Login</a></li>
+            <li class="align-right"><a href="/users/register">Register</a></li>
+        {{/if}}
       </ul>
     </nav>
   </header>

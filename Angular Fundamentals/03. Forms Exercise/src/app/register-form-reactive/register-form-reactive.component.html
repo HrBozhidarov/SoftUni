@@ -1,0 +1,114 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4">
+      <h1>Registration Form</h1>
+      <form [formGroup]="register" (ngSubmit)="onSubmit()">
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+          </div>
+          <input class="form-control" placeholder="Full Name" type="text" formControlName="fullName">
+        </div>
+        <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+          <div *ngIf="name.errors.required">
+            fullname field is required
+          </div>
+          <div *ngIf="name.errors.pattern">
+            have to contains two names which started with Capital letter separated by space
+          </div>
+        </div>
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+          </div>
+          <input class="form-control" placeholder="Email Address" type="email" formControlName="email">
+        </div>
+        <div class="alert alert-danger" *ngIf="email.invalid && (email.touched || email.dirty)">
+          <div *ngIf="email.errors.required">
+            email field is required
+          </div>
+          <div *ngIf="email.errors.pattern">
+            invalid email
+          </div>
+        </div>
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+          </div>
+          <select class="custom-select" style="max-width: 120px;" formControlName="startPhone">
+            <option *ngFor="let start of startsPhones" [ngValue]="start">
+              {{ start }}
+            </option>
+          </select>
+          <input formControlName="phone" class="form-control" placeholder="Phone number" type="text">
+        </div>
+        <div class="alert alert-danger" *ngIf="phone.invalid && (phone.touched || phone.dirty)">
+          <div *ngIf="phone.errors.required">
+            phone is required
+          </div>
+          <div *ngIf="phone.errors.pattern">
+            phone have to contains 9 digits exactly
+          </div>
+        </div>
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+          </div>
+          <select formControlName="proffession" class="form-control">
+            <option *ngFor="let proff of proffessions" [ngValue]="proff">{{proff}}</option>
+          </select>
+        </div>
+        <div formGroupName="passwords">
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+            </div>
+            <input formControlName="password" class="form-control" placeholder="Create password" type="password">
+          </div>
+          <div class="alert alert-danger" *ngIf="password.invalid && (password.touched || password.dirty)">
+            <div *ngIf="password.errors.required">
+              password is required
+            </div>
+            <div *ngIf="password.errors.pattern">
+              password must be between 3 and 16 letters and digits
+            </div>
+          </div>
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+            </div>
+            <input formControlName="repeatePassword" class="form-control" placeholder="Repeat password" type="password">
+          </div>
+          <div class="alert alert-danger" *ngIf="repeatePass.invalid && (repeatePass.touched || repeatePass.dirty)">
+            <div *ngIf="repeatePass.errors.required">
+              confirm password is required
+            </div>
+          </div>
+        </div>
+        <div class="alert alert-danger" *ngIf="(repeatePass.touched || repeatePass.dirty) &&
+          (password.touched || password.dirty) &&
+           repeatePass.value != password.value">
+          passwords don`t matches.
+        </div>
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-image"></i> </span>
+          </div>
+          <input formControlName="image" class="form-control" placeholder="Img">
+        </div>
+        <div class="alert alert-danger" *ngIf="img.invalid && (img.touched || img.dirty)">
+          <div *ngIf="img.errors.required">
+            img is required
+          </div>
+        </div>
+        <div class="form-group">
+          <button [disabled]="register.invalid" type="submit" class="btn btn-primary btn-block"> Create Account
+          </button>
+        </div>
+        <p class="text-center">Have an account? <a href="">Log In</a> </p>
+      </form>
+    </div>
+    <div class="col-lg-4"></div>
+  </div>
+</div>

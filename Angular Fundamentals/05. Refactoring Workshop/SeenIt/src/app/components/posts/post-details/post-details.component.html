@@ -1,0 +1,6 @@
+<section id="viewComments">
+  <app-post-info [post]="post" [rank]="rank" (postId)="deletePost($event)"></app-post-info>
+  <app-comment-create [postModel]="post" (form)="postComment($event)"></app-comment-create>
+  <app-comment-info *ngFor="let commentInfo of comments" [commentInfo]="commentInfo" [post]="post"
+    (commentId)="deleteComment($event)"></app-comment-info>
+</section>

@@ -122,7 +122,7 @@ namespace MiniORM
                 var dbSetProperty = dbSet.Value;
 
                 var populateDbSetGeneric = typeof(DbContext)
-                    .GetMethod("PopulateDbSet", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .GetMethod(nameof(PopulateDbSet), BindingFlags.Instance | BindingFlags.NonPublic)
                     .MakeGenericMethod(dbSetType);
 
                 populateDbSetGeneric.Invoke(this, new object[] { dbSetProperty });
@@ -146,7 +146,7 @@ namespace MiniORM
                 var dbSetType = dbSetProperty.Key;
 
                 var mapRelationGeneric = typeof(DbContext)
-                    .GetMethod("MapRelations", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .GetMethod(nameof(MapRelations), BindingFlags.Instance | BindingFlags.NonPublic)
                     .MakeGenericMethod(dbSetType);
 
                 var dbSet = dbSetProperty.Value.GetValue(this);
@@ -172,7 +172,7 @@ namespace MiniORM
                 var collectionType = collection.PropertyType.GenericTypeArguments.First();
 
                 var mapCollectionMethod = typeof(DbContext)
-                    .GetMethod("MapCollection", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .GetMethod(nameof(MapCollection), BindingFlags.Instance | BindingFlags.NonPublic)
                     .MakeGenericMethod(entityType, collectionType);
 
                 mapCollectionMethod.Invoke(this, new object[] { dbSet, collection });

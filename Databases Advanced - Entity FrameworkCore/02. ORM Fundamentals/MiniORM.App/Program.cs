@@ -8,9 +8,14 @@ namespace MiniORM.App
     {
         static void Main(string[] args)
         {
-            var connectionString = "Server=SomeServer;Database=MiniORM;Integrated Security=True;";
+            var connectionString = "Server=.;Database=MiniORM;Integrated Security=True;";
 
             var context = new SoftUniDbContext(connectionString);
+
+            //var department = new Department() { Name = "Department" };
+            //context.Departments.Add(department);
+            //context.SaveChanges();
+
 
             context.Employees.Add(new Employee
             {
@@ -19,10 +24,6 @@ namespace MiniORM.App
                 DepartmentId = context.Departments.First().Id,
                 IsEmployed = true
             });
-
-            var employee = context.Employees.Last();
-
-            employee.FirstName = "Modified";
 
             context.SaveChanges();
         }
